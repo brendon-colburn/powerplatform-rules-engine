@@ -1,0 +1,42 @@
+"'Existing Rule Screen' As screen.'tabletAutoLayout_HeaderMainFooter_ver1.0'":
+
+    ScreenContainer2 As groupContainer.verticalAutoLayoutContainer:
+        Height: =Parent.Height
+        LayoutAlignItems: =LayoutAlignItems.Stretch
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        Width: =Parent.Width
+        ZIndex: =1
+
+        HeaderContainer2 As groupContainer.horizontalAutoLayoutContainer:
+            FillPortions: =0
+            Height: =75
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            ZIndex: =2
+
+            Label2 As label:
+                Text: ="Existing Rule"
+                ZIndex: =1
+
+            Icon4 As icon.ArrowLeft:
+                Icon: =Icon.ArrowLeft
+                OnSelect: =Back()
+                ZIndex: =2
+
+        MainSectionContainer2 As groupContainer.verticalAutoLayoutContainer:
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            ZIndex: =3
+
+        FooterContainer2 As groupContainer.horizontalAutoLayoutContainer:
+            FillPortions: =0
+            Height: =75
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            ZIndex: =4
+

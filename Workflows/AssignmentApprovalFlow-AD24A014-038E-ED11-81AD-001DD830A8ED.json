@@ -1,0 +1,169 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "bac_sharedcommondataserviceforapps_32f20"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_approvals": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "bac_sharedapprovals_4d2f6"
+        },
+        "api": {
+          "name": "shared_approvals"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "When_a_row_is_added,_modified_or_deleted": {
+          "metadata": {
+            "operationMetadataId": "b34e081d-4aac-49d8-ae10-3e4c3498954f"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 4,
+              "subscriptionRequest/entityname": "bac_assignment",
+              "subscriptionRequest/scope": 4
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Get_a_row_by_ID": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "caaf4a34-fdd0-4e50-8e84-dfc5a0c79a95"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "bac_userroles",
+              "recordId": "@triggerOutputs()?['body/_bac_role_value']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Start_and_wait_for_an_approval": {
+          "runAfter": {
+            "Get_a_row_by_ID": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "44522f2c-909a-40ce-ac44-ecdec9ce9874"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_approvals",
+              "operationId": "StartAndWaitForAnApproval",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_approvals"
+            },
+            "parameters": {
+              "approvalType": "Basic",
+              "WebhookApprovalCreationInput/title": "Please review",
+              "WebhookApprovalCreationInput/assignedTo": "@{outputs('Get_a_row_by_ID')?['body/bac_email']};",
+              "WebhookApprovalCreationInput/enableNotifications": true,
+              "WebhookApprovalCreationInput/enableReassignment": true
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Switch": {
+          "runAfter": {
+            "Start_and_wait_for_an_approval": [
+              "Succeeded"
+            ]
+          },
+          "cases": {
+            "Case": {
+              "case": "Approved",
+              "actions": {
+                "Update_a_row": {
+                  "runAfter": {},
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "UpdateRecord",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "entityName": "bac_assignments",
+                      "recordId": "@triggerOutputs()?['body/bac_assignmentid']",
+                      "item/bac_state": 123000001
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                }
+              }
+            },
+            "Case_2": {
+              "case": "Reject",
+              "actions": {
+                "Update_a_row_2": {
+                  "runAfter": {},
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "UpdateRecord",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "entityName": "bac_assignments",
+                      "recordId": "@triggerOutputs()?['body/bac_assignmentid']",
+                      "item/bac_state": 123000002
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "actions": {}
+          },
+          "expression": "@outputs('Start_and_wait_for_an_approval')?['body/outcome']",
+          "metadata": {
+            "operationMetadataId": "805336fc-2ff8-476c-a11d-b02ee5bb4ea7"
+          },
+          "type": "Switch"
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

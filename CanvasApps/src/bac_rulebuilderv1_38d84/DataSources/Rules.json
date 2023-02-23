@@ -1,0 +1,94 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "bac_rules",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "bac_rule",
+    "Name": "Rules",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "bac_json": "JSON",
+      "bac_name": "Name",
+      "bac_rule_AsyncOperations": "System Jobs",
+      "bac_rule_BulkDeleteFailures": "Bulk Delete Failures",
+      "bac_rule_DuplicateBaseRecord": "Duplicate Records (bac_rule_DuplicateBaseRecord)",
+      "bac_rule_DuplicateMatchingRecord": "Duplicate Records (bac_rule_DuplicateMatchingRecord)",
+      "bac_rule_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "bac_rule_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "bac_rule_ProcessSession": "Process Sessions",
+      "bac_rule_SyncErrors": "Sync Errors",
+      "bac_ruleid": "Rule",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "organizationid": "Organization Id",
+      "overriddencreatedon": "Record Created On",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Rules",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Rules (Views)",
+    "Name": "_bac_rule_views",
+    "RelatedEntityName": "Rules",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "4100e89a-da11-4d9e-a271-54e21be139f4": "Rule Advanced Find View",
+      "70c33fc1-a1e3-4218-8b0d-49fc0be1e8f3": "Active Rules",
+      "855bc292-8ef1-42b5-b9ef-06090d94a0c3": "Rule Lookup View",
+      "9fb86b06-7114-4598-81c2-9cb450a8a28e": "Inactive Rules",
+      "f93d88c0-0e36-499a-aa42-8cc9610ce6d3": "Rule Associated View"
+    }
+  },
+  {
+    "DisplayName": "Status (Rules)",
+    "Name": "bac_rule_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Rules"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Rules",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Rules)",
+    "Name": "bac_rule_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Rules"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Rules",
+    "Type": "OptionSetInfo"
+  }
+]

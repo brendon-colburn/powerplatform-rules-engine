@@ -1,0 +1,34 @@
+{
+  "conditional-behavior": "and",
+  "conditions": [
+    {
+      "table": "package",
+      "column": "bac_type",
+      "value": "Training"
+    },
+    {
+      "table": "stage",
+      "column": "name",
+      "value": "Validation"
+    }
+  ],
+  "actions": [
+    {
+      "parent-table": "package",
+      "child-table": "bac_assignments",
+      "generation-data": {
+        "bac_name": "Training Assignment",
+        "bac_Package@odata.bind": "%packageid%",
+        "bac_role@odata.bind": "123000000"
+      }
+    },
+    {
+      "parent-table": "package",
+      "child-table": "tasks",
+      "generation-data": {
+        "subject": "Provide Training Cost",
+        "regardingobjectid_bac_package_task@odata.bind": "%packageid%"
+      }
+    }
+  ]
+}

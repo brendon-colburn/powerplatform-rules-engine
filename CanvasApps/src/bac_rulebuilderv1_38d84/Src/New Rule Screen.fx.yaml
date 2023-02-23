@@ -1,0 +1,79 @@
+"'New Rule Screen' As screen.'tabletAutoLayout_HeaderMainFooter_ver1.0'":
+
+    ScreenContainer1 As groupContainer.verticalAutoLayoutContainer:
+        Height: =Parent.Height
+        LayoutAlignItems: =LayoutAlignItems.Stretch
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        Width: =Parent.Width
+        ZIndex: =1
+
+        HeaderContainer1 As groupContainer.horizontalAutoLayoutContainer:
+            Height: =75
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            ZIndex: =2
+
+            Label1 As label:
+                Text: |-
+                    ="New Rule
+                    "
+                ZIndex: =1
+
+            Icon3 As icon.ArrowLeft:
+                Icon: =Icon.ArrowLeft
+                OnSelect: =Back()
+                ZIndex: =2
+
+            Icon5 As icon.Save:
+                Icon: =Icon.Save
+                ZIndex: =3
+
+        MainSectionContainer1 As groupContainer.verticalAutoLayoutContainer:
+            FillPortions: =5
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            ZIndex: =3
+
+            Label3 As label:
+                Text: ="Conditions"
+                ZIndex: =1
+
+            Gallery4_1 As gallery.galleryHorizontal:
+                Items: =CustomGallerySample
+                TemplateSize: =If(Self.Layout = Layout.Horizontal, Min(320, Self.Width - 60), Min(320, Self.Height - 60))
+                ZIndex: =2
+
+            Label5 As label:
+                Text: |-
+                    ="Actions
+                    "
+                ZIndex: =3
+
+            Gallery4 As gallery.galleryHorizontal:
+                Items: =CustomGallerySample
+                TemplateSize: =If(Self.Layout = Layout.Horizontal, Min(320, Self.Width - 60), Min(320, Self.Height - 60))
+                ZIndex: =4
+
+        FooterContainer1 As groupContainer.horizontalAutoLayoutContainer:
+            FillPortions: =2
+            Height: =75
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            ZIndex: =4
+
+            Label6 As label:
+                AlignInContainer: =AlignInContainer.Center
+                Text: ="JSON"
+                ZIndex: =1
+
+            RulesJSON As label:
+                AlignInContainer: =AlignInContainer.Stretch
+                FillPortions: =1
+                Text: =JSON(BlankRule)
+                ZIndex: =2
+

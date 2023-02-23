@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{c9064d35-616b-ed11-81ac-000d3af4f400}" Name="Package Review Process" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <XamlFileName>/Workflows/PackageReviewProcess-C9064D35-616B-ED11-81AC-000D3AF4F400.xaml</XamlFileName>
+  <Type>1</Type>
+  <Subprocess>0</Subprocess>
+  <Category>4</Category>
+  <Mode>0</Mode>
+  <Scope>4</Scope>
+  <OnDemand>0</OnDemand>
+  <TriggerOnCreate>1</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>0</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>0</SyncWorkflowLogOnFailure>
+  <StateCode>1</StateCode>
+  <StatusCode>2</StatusCode>
+  <processorder>100</processorder>
+  <RunAs>1</RunAs>
+  <UniqueName>bac_packagereviewprocess</UniqueName>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <BusinessProcessType>0</BusinessProcessType>
+  <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+  <ProcessTriggerScope>1</ProcessTriggerScope>
+  <PrimaryEntity>bac_Package</PrimaryEntity>
+  <LocalizedNames>
+    <LocalizedName languagecode="1033" description="Package Review Process" />
+  </LocalizedNames>
+  <labels>
+    <steplabels id="{d7fb594c-c647-40b6-92b0-e43ea3a31854}">
+      <label languagecode="1033" description="Submission" />
+    </steplabels>
+    <steplabels id="{c8ad3b8e-7f74-47f7-b7a6-78d85d615d39}">
+      <label languagecode="1033" description="Type" />
+    </steplabels>
+    <steplabels id="{032e8ae6-0d8b-432b-b232-ac4379aa0fe7}">
+      <label languagecode="1033" description="Validation" />
+    </steplabels>
+    <steplabels id="{65892292-093f-4ccc-bc67-85f8ab7262bd}">
+      <label languagecode="1033" description="Name" />
+    </steplabels>
+    <steplabels id="{527b6ad9-80f6-4378-81a8-d5ce8f09813d}">
+      <label languagecode="1033" description="Determination" />
+    </steplabels>
+    <steplabels id="{9f9df1f9-920c-4c18-a256-8d7f3102e11f}">
+      <label languagecode="1033" description="Name" />
+    </steplabels>
+  </labels>
+</Workflow>

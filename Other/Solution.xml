@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml version="9.2.23021.184" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SolutionManifest>
+    <UniqueName>OrganizationalPackageReview</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="Organizational Package Review" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions />
+    <Version>1.0.0.4</Version>
+    <Managed>0</Managed>
+    <Publisher>
+      <UniqueName>brendon</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="Brendon" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions />
+      <EMailAddress xsi:nil="true"></EMailAddress>
+      <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
+      <CustomizationPrefix>bac</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>12300</CustomizationOptionValuePrefix>
+      <Addresses>
+        <Address>
+          <AddressNumber>1</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+        <Address>
+          <AddressNumber>2</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+      </Addresses>
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="1" schemaName="aaduser" behavior="1" />
+      <RootComponent type="1" schemaName="bac_action" behavior="0" />
+      <RootComponent type="1" schemaName="bac_assignment" behavior="0" />
+      <RootComponent type="1" schemaName="bac_condition" behavior="0" />
+      <RootComponent type="1" schemaName="bac_package" behavior="0" />
+      <RootComponent type="1" schemaName="bac_packagereviewprocess" behavior="0" />
+      <RootComponent type="1" schemaName="bac_rule" behavior="0" />
+      <RootComponent type="1" schemaName="bac_userrole" behavior="0" />
+      <RootComponent type="29" id="{407bc2b9-656b-ed11-81ac-000d3af4f400}" behavior="0" />
+      <RootComponent type="29" id="{ad24a014-038e-ed11-81ad-001dd830a8ed}" behavior="0" />
+      <RootComponent type="29" id="{c9064d35-616b-ed11-81ac-000d3af4f400}" behavior="0" />
+      <RootComponent type="300" schemaName="bac_rulebuilderv1_38d84" behavior="0" />
+      <RootComponent type="62" schemaName="bac_PackageAdministration" behavior="0" />
+      <RootComponent type="80" schemaName="bac_PackageAdministration" behavior="0" />
+      <RootComponent type="9" schemaName="bac_packagetype" behavior="0" />
+      <RootComponent type="9" schemaName="bac_roles" behavior="0" />
+    </RootComponents>
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="1" schemaName="aaduser" displayName="AAD User" solution="MetadataExtension (1.0.2.30)" />
+        <Dependent type="1" schemaName="aaduser" displayName="AAD User" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="aaduser" displayName="AAD User" solution="MetadataExtension (1.0.2.30)" />
+        <Dependent type="10" schemaName="bac_bac_assignment_Person_aaduser" displayName="bac_bac_assignment_Person_aaduser" parentSchemaName="aaduser" parentDisplayName="AAD User" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="aaduser" displayName="AAD User" solution="MetadataExtension (1.0.2.30)" />
+        <Dependent type="10" schemaName="bac_bac_userrole_user_aaduser" displayName="bac_bac_userrole_user_aaduser" parentSchemaName="aaduser" parentDisplayName="AAD User" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="aaduser" displayName="AAD User" solution="MetadataExtension (1.0.2.30)" />
+        <Dependent type="62" schemaName="bac_PackageAdministration" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="aaduser" displayName="AAD User" solution="MetadataExtension (1.0.2.30)" />
+        <Dependent type="80" schemaName="bac_PackageAdministration" displayName="Package Administration" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="aaduserid" displayName="AAD user id" parentSchemaName="aaduser" parentDisplayName="AAD User" solution="MetadataExtension (1.0.2.30)" />
+        <Dependent type="10" schemaName="bac_bac_assignment_Person_aaduser" displayName="bac_bac_assignment_Person_aaduser" parentSchemaName="aaduser" parentDisplayName="AAD User" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="aaduserid" displayName="AAD user id" parentSchemaName="aaduser" parentDisplayName="AAD User" solution="MetadataExtension (1.0.2.30)" />
+        <Dependent type="10" schemaName="bac_bac_userrole_user_aaduser" displayName="bac_bac_userrole_user_aaduser" parentSchemaName="aaduser" parentDisplayName="AAD User" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="displayname" displayName="Display Name" parentSchemaName="aaduser" parentDisplayName="AAD User" solution="MetadataExtension (1.0.2.30)" />
+        <Dependent type="10" schemaName="bac_bac_assignment_Person_aaduser" displayName="bac_bac_assignment_Person_aaduser" parentSchemaName="aaduser" parentDisplayName="AAD User" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="displayname" displayName="Display Name" parentSchemaName="aaduser" parentDisplayName="AAD User" solution="MetadataExtension (1.0.2.30)" />
+        <Dependent type="10" schemaName="bac_bac_userrole_user_aaduser" displayName="bac_bac_userrole_user_aaduser" parentSchemaName="aaduser" parentDisplayName="AAD User" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)" />
+        <Dependent type="80" schemaName="bac_PackageAdministration" displayName="Package Administration" />
+      </MissingDependency>
+    </MissingDependencies>
+  </SolutionManifest>
+</ImportExportXml>

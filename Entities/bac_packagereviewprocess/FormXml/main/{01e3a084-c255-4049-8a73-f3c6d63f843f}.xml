@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{01e3a084-c255-4049-8a73-f3c6d63f843f}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab verticallayout="true" id="{d7fb594c-c647-40b6-92b0-e43ea3a31854}" name="StageStep3" locklevel="0" expanded="true" visible="false" labelid="{9a12a24d-67a0-42b0-8736-10ad08b5c727}">
+          <labels>
+            <label description="Submission" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showbar="false" columns="1" id="{c87d1675-b521-786a-1e54-fe5e8b7f2339}" name="StageStep3_section1" labelid="{f0123d46-a79d-437e-9776-4514a16b76e7}">
+                  <labels>
+                    <label description="Submission" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{c8ad3b8e-7f74-47f7-b7a6-78d85d615d39}" showlabel="true" visible="true" labelid="{10e11403-4e33-4a1f-b149-fe3d376c0f8f}">
+                        <labels>
+                          <label description="Type" languagecode="1033" />
+                        </labels>
+                        <control id="bpf_bac_package_bac_packagereviewprocess:bac_type" classid="{3ef39988-22bb-4f0b-bbbe-64b5a3748aee}" datafieldname="bac_type" relationship="bpf_bac_package_bac_packagereviewprocess" isrequired="true" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab verticallayout="true" id="{032e8ae6-0d8b-432b-b232-ac4379aa0fe7}" name="StageStep7" locklevel="0" expanded="true" visible="false" labelid="{84b7a29c-4d17-4989-b84f-969872db8ad3}">
+          <labels>
+            <label description="Validation" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showbar="false" columns="1" id="{232aa074-3729-bb69-a92b-7e8491324706}" name="StageStep7_section1" labelid="{b72e08a5-89fd-4519-bd17-337ad8c7c638}">
+                  <labels>
+                    <label description="Validation" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{65892292-093f-4ccc-bc67-85f8ab7262bd}" showlabel="true" visible="true" labelid="{336a5175-897c-416e-a040-af6f3662be6d}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="bpf_bac_package_bac_packagereviewprocess:bac_name" classid="{4273edbd-ac1d-40d3-9fb2-095c621b552d}" datafieldname="bac_name" relationship="bpf_bac_package_bac_packagereviewprocess" isrequired="false" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab verticallayout="true" id="{527b6ad9-80f6-4378-81a8-d5ce8f09813d}" name="StageStep11" locklevel="0" expanded="true" visible="false" labelid="{c91e2408-d7eb-4952-ae37-2eb931a91332}">
+          <labels>
+            <label description="Determination" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showbar="false" columns="1" id="{b2398c90-c534-0569-8478-543f51049d58}" name="StageStep11_section1" labelid="{ed011b15-3c83-455a-8d10-6ae337428e45}">
+                  <labels>
+                    <label description="Determination" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{9f9df1f9-920c-4c18-a256-8d7f3102e11f}" showlabel="true" visible="true" labelid="{dc67e7ef-497d-41ce-8bd4-a6e23627a3a1}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="bpf_bac_package_bac_packagereviewprocess:bac_name" classid="{4273edbd-ac1d-40d3-9fb2-095c621b552d}" datafieldname="bac_name" relationship="bpf_bac_package_bac_packagereviewprocess" isrequired="false" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

@@ -1,0 +1,685 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "bac_sharedcommondataserviceforapps_64668"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_commondataserviceforapps_1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "bac_sharedcommondataserviceforapps_32f20"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "When_a_row_is_added,_modified_or_deleted": {
+          "metadata": {
+            "operationMetadataId": "b1e9ec44-863a-471f-a8f2-762d6e3cff82"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 4,
+              "subscriptionRequest/entityname": "bac_packagereviewprocess",
+              "subscriptionRequest/scope": 4
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Get_Stage_Details": {
+          "runAfter": {
+            "Initialize_variable_2": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "cf078709-c453-40b0-9c08-59e74d75d804"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "processstages",
+              "recordId": "@triggerOutputs()?['body/_activestageid_value']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Get_Package_Details": {
+          "runAfter": {
+            "Get_Stage_Details": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "8389661f-36ca-487a-9a74-2433243fb9f7"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "bac_packages",
+              "recordId": "@triggerOutputs()?['body/_bpf_bac_packageid_value']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Get_Rules": {
+          "runAfter": {
+            "Get_Package_Details": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "4b568962-0433-470c-bcee-488b3c295ea9"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "bac_rules"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "For_Each_Rule": {
+          "foreach": "@outputs('Get_Rules')?['body/value']",
+          "actions": {
+            "Parse_Rule_JSON": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "b2d11085-42aa-4ad8-9bc4-73cd54017160"
+              },
+              "type": "ParseJson",
+              "inputs": {
+                "content": "@items('For_Each_Rule')?['bac_json']",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "conditional-behavior": {
+                      "type": "string"
+                    },
+                    "conditions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "table": {
+                            "type": "string"
+                          },
+                          "column": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "table",
+                          "column",
+                          "value"
+                        ]
+                      }
+                    },
+                    "actions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "parent-table": {
+                            "type": "string"
+                          },
+                          "child-table": {
+                            "type": "string"
+                          },
+                          "generation-data": {
+                            "type": "object",
+                            "properties": {
+                              "bac_name": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "parent-table",
+                          "child-table",
+                          "generation-data"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "For_Each_Rule_Condition": {
+              "foreach": "@body('Parse_Rule_JSON')?['conditions']",
+              "actions": {
+                "Condition": {
+                  "actions": {
+                    "Compose": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "4a462ae6-ed47-4f52-89ac-8e5ddcc20a6f"
+                      },
+                      "type": "Compose",
+                      "inputs": "@outputs('Get_Package_Details')?['body/bac_type@OData.Community.Display.V1.FormattedValue']"
+                    },
+                    "Condition_3": {
+                      "actions": {
+                        "Set_as_unmatched": {
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "867890f5-05f8-4d31-9993-ddc891633629"
+                          },
+                          "type": "SetVariable",
+                          "inputs": {
+                            "name": "matched",
+                            "value": false
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Compose": [
+                          "Succeeded"
+                        ]
+                      },
+                      "expression": {
+                        "not": {
+                          "equals": [
+                            "@items('For_Each_Rule_Condition')?['value']",
+                            "@outputs('Compose')"
+                          ]
+                        }
+                      },
+                      "metadata": {
+                        "operationMetadataId": "7ff86e3a-36de-4744-988c-e1955e1b4cef"
+                      },
+                      "type": "If"
+                    }
+                  },
+                  "runAfter": {},
+                  "else": {
+                    "actions": {
+                      "Condition_4": {
+                        "actions": {
+                          "Set_variable_2": {
+                            "runAfter": {},
+                            "metadata": {
+                              "operationMetadataId": "867890f5-05f8-4d31-9993-ddc891633629"
+                            },
+                            "type": "SetVariable",
+                            "inputs": {
+                              "name": "matched",
+                              "value": false
+                            }
+                          }
+                        },
+                        "runAfter": {},
+                        "expression": {
+                          "not": {
+                            "equals": [
+                              "@outputs('Get_Stage_Details')?['body/stagename']",
+                              "@items('For_Each_Rule_Condition')?['value']"
+                            ]
+                          }
+                        },
+                        "metadata": {
+                          "operationMetadataId": "62ab464a-9ce2-44ad-8aeb-70cf6b8a72b0"
+                        },
+                        "type": "If"
+                      }
+                    }
+                  },
+                  "expression": {
+                    "equals": [
+                      "@items('For_Each_Rule_Condition')?['table']",
+                      "package"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "73488b98-d086-44e2-ae58-830519f73ba0"
+                  },
+                  "type": "If"
+                }
+              },
+              "runAfter": {
+                "Set_variable": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "ea2f3ef3-e130-4e45-b9d4-57c0dcd7a63a"
+              },
+              "type": "Foreach"
+            },
+            "Set_variable": {
+              "runAfter": {
+                "Parse_Rule_JSON": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "0f65c2ff-6dcb-4b12-9db6-72d14a6965dc"
+              },
+              "type": "SetVariable",
+              "inputs": {
+                "name": "matched",
+                "value": true
+              }
+            },
+            "Condition_2": {
+              "actions": {
+                "Append_to_array_variable": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "fdebf19c-91fb-4695-8019-a8fcd8469c4d"
+                  },
+                  "type": "AppendToArrayVariable",
+                  "inputs": {
+                    "name": "matches",
+                    "value": "@body('Parse_Rule_JSON')"
+                  }
+                }
+              },
+              "runAfter": {
+                "For_Each_Rule_Condition": [
+                  "Succeeded"
+                ]
+              },
+              "expression": {
+                "equals": [
+                  "@variables('matched')",
+                  true
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "6e68be1c-48e8-434a-8b7e-53462dc2ca15"
+              },
+              "type": "If"
+            }
+          },
+          "runAfter": {
+            "Get_Rules": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "2cbe246e-b1af-4f8d-b0cf-f34f168e2005"
+          },
+          "type": "Foreach"
+        },
+        "Initialize_variable_called_matches": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "4e768826-6f25-4baf-a429-f2b3ca823f84"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "matches",
+                "type": "array"
+              }
+            ]
+          }
+        },
+        "Initialize_variable_called_matched": {
+          "runAfter": {
+            "Initialize_variable_called_matches": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "f7a9ba90-54d4-45c1-89ff-8760b9b58dd2"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "matched",
+                "type": "boolean"
+              }
+            ]
+          }
+        },
+        "For_Each_Match": {
+          "foreach": "@variables('matches')",
+          "actions": {
+            "Parse_JSON_Matches": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "c7c60a84-f511-4b37-b151-c0b10cdc91a1"
+              },
+              "type": "ParseJson",
+              "inputs": {
+                "content": "@items('For_Each_Match')",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "conditional-behavior": {
+                      "type": "string"
+                    },
+                    "conditions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "table": {
+                            "type": "string"
+                          },
+                          "column": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "table",
+                          "column",
+                          "value"
+                        ]
+                      }
+                    },
+                    "actions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "parent-table": {
+                            "type": "string"
+                          },
+                          "child-table": {
+                            "type": "string"
+                          },
+                          "generation-data": {
+                            "type": "object",
+                            "properties": {
+                              "bac_name": {
+                                "type": "string"
+                              },
+                              "bac_Package@odata.bind": {
+                                "type": "string"
+                              },
+                              "bac_role@odata.bind": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "parent-table",
+                          "child-table",
+                          "generation-data"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "For_Each_Action": {
+              "foreach": "@body('Parse_JSON_Matches')?['actions']",
+              "actions": {
+                "Compose_5": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "bde1ce8f-9fc0-4cc6-870f-ce557a402826"
+                  },
+                  "type": "Compose",
+                  "inputs": "@items('For_Each_Action')?['child-table']"
+                },
+                "Condition_5": {
+                  "actions": {
+                    "Compose_2": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "679dbe33-5beb-4e96-860f-a59d5165b9a5"
+                      },
+                      "type": "Compose",
+                      "inputs": "@json(replace(string(items('For_Each_Action')?['generation-data']),'%packageid%',concat('/tasks(',outputs('Get_Package_Details')?['body/bac_packageid'],')')))"
+                    },
+                    "Add_a_new_row_2": {
+                      "runAfter": {
+                        "Compose_2": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "0ae1538b-7e4c-44af-8a0f-884021ad744a"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "CreateRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "@items('For_Each_Action')?['child-table']",
+                          "item": "@outputs('Compose_2')"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Compose_5": [
+                      "Succeeded"
+                    ]
+                  },
+                  "else": {
+                    "actions": {
+                      "Add_a_new_row_3": {
+                        "runAfter": {
+                          "Compose_4": [
+                            "Succeeded"
+                          ]
+                        },
+                        "metadata": {
+                          "operationMetadataId": "0ae1538b-7e4c-44af-8a0f-884021ad744a"
+                        },
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "host": {
+                            "connectionName": "shared_commondataserviceforapps",
+                            "operationId": "CreateRecord",
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                          },
+                          "parameters": {
+                            "entityName": "@items('For_Each_Action')?['child-table']",
+                            "item": "@outputs('Compose_4')"
+                          },
+                          "authentication": "@parameters('$authentication')"
+                        }
+                      },
+                      "List_rows": {
+                        "runAfter": {},
+                        "metadata": {
+                          "operationMetadataId": "808eb0ba-741e-4456-8e0d-207f1adefa85"
+                        },
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "host": {
+                            "connectionName": "shared_commondataserviceforapps_1",
+                            "operationId": "ListRecords",
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                          },
+                          "parameters": {
+                            "entityName": "bac_userroles",
+                            "$filter": "bac_role eq @{items('For_Each_Action')?['generation-data']?['bac_role@odata.bind']}",
+                            "$top": 1
+                          },
+                          "authentication": "@parameters('$authentication')"
+                        }
+                      },
+                      "Compose_3": {
+                        "runAfter": {
+                          "List_rows": [
+                            "Succeeded"
+                          ]
+                        },
+                        "metadata": {
+                          "operationMetadataId": "679dbe33-5beb-4e96-860f-a59d5165b9a5"
+                        },
+                        "type": "Compose",
+                        "inputs": "@json(replace(string(items('For_Each_Action')?['generation-data']), '%packageid%', concat('/bac_assignments(', outputs('Get_Package_Details')?['body/bac_packageid'], ')')))"
+                      },
+                      "Compose_4": {
+                        "runAfter": {
+                          "Apply_to_each": [
+                            "Succeeded"
+                          ]
+                        },
+                        "metadata": {
+                          "operationMetadataId": "679dbe33-5beb-4e96-860f-a59d5165b9a5"
+                        },
+                        "type": "Compose",
+                        "inputs": "@json(replace(string(outputs('Compose_3')), items('For_Each_Action')?['generation-data']?['bac_role@odata.bind'],  concat('/bac_userroles(',variables('role'),')')))"
+                      },
+                      "Apply_to_each": {
+                        "foreach": "@outputs('List_rows')?['body/value']",
+                        "actions": {
+                          "Set_variable_4": {
+                            "runAfter": {},
+                            "metadata": {
+                              "operationMetadataId": "4dcf20ea-f29f-4856-a7be-9ee019e5ef39"
+                            },
+                            "type": "SetVariable",
+                            "inputs": {
+                              "name": "role",
+                              "value": "@items('Apply_to_each')?['bac_userroleid']"
+                            }
+                          }
+                        },
+                        "runAfter": {
+                          "Compose_3": [
+                            "Succeeded"
+                          ]
+                        },
+                        "metadata": {
+                          "operationMetadataId": "d21409bb-e3ce-49bc-9483-61b30905791e"
+                        },
+                        "type": "Foreach"
+                      }
+                    }
+                  },
+                  "expression": {
+                    "equals": [
+                      "@items('For_Each_Action')?['child-table']",
+                      "tasks"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "60348b8f-03c9-40b5-b60b-83aa529d1f4b"
+                  },
+                  "type": "If"
+                }
+              },
+              "runAfter": {
+                "Parse_JSON_Matches": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "1e4676c4-4775-47d1-bc4a-814374502841"
+              },
+              "type": "Foreach"
+            }
+          },
+          "runAfter": {
+            "For_Each_Rule": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "db008d7c-71e1-4244-8e2e-4aa008494356"
+          },
+          "type": "Foreach"
+        },
+        "Initialize_variable": {
+          "runAfter": {
+            "Initialize_variable_called_matched": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "c74f37d8-066a-4ec5-9003-b0ead6c037ef"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "roleid",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Initialize_variable_2": {
+          "runAfter": {
+            "Initialize_variable": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "ae8b4649-55d8-4591-ac3c-4159528919c4"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "role",
+                "type": "string"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}
