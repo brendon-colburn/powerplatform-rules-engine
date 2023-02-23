@@ -1,5 +1,5 @@
 # Rules Engine for Power Platform
-An accelerator for building rules engines in Power Platform. It's getting iteratively improved based on the feedback from the community. It's built to be flexible and extensible. It's a great starting point for building your own rules engine.
+An accelerator for building rules engines on the Power Platform. It's getting iteratively improved based on the feedback from the community. It's built to be flexible and extensible. It's a great starting point for building your own rules engine.
 
 ## Features
 - Dataverse solution for deployment and packaging
