@@ -9,7 +9,7 @@ An accelerator for building rules engines in Power Platform. It's getting iterat
 - Canvas App for building rules
 
 ## Getting Started
-1. Download the latest release from the [releases page](
+1. Download the latest release from the [releases page](https://github.com/brendon-colburn/powerplatform-rules-engine/releases)
 2. Import the solution into your Dataverse environment
 3. Create a new record in the Rules Engine Configuration table
 4. Populate the configuration record with the following [sampleRule.json](sampleRule.json)
